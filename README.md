@@ -13,6 +13,12 @@ run cpws-reset --reset-color
 
 run cpws-gc -h to see options
 
+
+
 in conky.conf conky.text
 
 write "${execp cpws-gc *brightness num*}" to get color
+
+
+
+return to this repo a week from noe to do all that over again but without any super obvious bugd
