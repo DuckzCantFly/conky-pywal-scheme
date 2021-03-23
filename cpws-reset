@@ -1,0 +1,57 @@
+#! /bin/sh
+
+CKSCA="$XDG_CACHE_HOME/conky-pywal-scheme"
+
+RBTconk(){
+	pkill conky ; conky -b &
+}
+
+GPWclr(){
+	[ -d "$CKSCA" ] || $( mkdir "$CKSCA" \
+		"$CKSCA" "$CKSCA/dim" "$CKSCA/normal" "$CKSCA/bright" )
+
+	for PWCLR in $(head -26 $XDG_CACHE_HOME/wal/colors.sh | tail +11 | sed -e "s/[=\']//g")  ; do
+		PWCLRHX="$(echo $PWCLR | cut -d '#' -f2)"
+		PWCLRNM="$(echo $PWCLR | cut -d '#' -f1)"
+		RAWCLR="$( echo "$PWCLRHX" | fold -w2 | tr '[:lower:]' '[:upper:]' )"
+
+		echo "\${color #$PWCLRHX}" > "$CKSCA/normal/$PWCLRNM"
+
+		CLINC="0"
+		for CMB in $(echo $RAWCLR) ; do
+				CLINC=$(( $CLINC + 1))
+				CMI=$(( 0x$CMB + 0x30 ))
+				[ "$CMI" -gt "255" ] && CMI="255"
+				eval "CMI$CLINC=$(printf 0x%X $CMI | cut -d'x' -f2)"
+		done
+		echo "\${color #$CMI1$CMI2$CMI3}" > "$CKSCA/bright/$PWCLRNM"
+
+		CLINC="0"
+		for CMB in $(echo $RAWCLR) ; do
+				CLINC=$(( $CLINC + 1))
+				CMI=$(( 0x$CMB - 0x30 ))
+				[ "$CMI" -gt "255" ] && CMI="255"
+				eval "CMI$CLINC=$(printf 0x%X $CMI | cut -d'x' -f2)"
+		done
+		echo "\${color #$CMI1$CMI2$CMI3}" > "$CKSCA/dim/$PWCLRNM"
+
+	done
+}
+
+PNThelp(){
+	printf '%s\n' \
+        '| $1 = --help	-h	or ""	= "Show Help"							   |'\
+        '| $1 = --reset-color 	--rcs	= "Resets color to newest from Pywal & Reboots Conky"		   |'\
+        '| $1 = --reboot-conky 	--rbck	= "Reboots Conky"						   |'
+}
+
+case $1 in
+	"--help"|"-h")
+		PNThelp ;;
+	"--reset-color"|"--rcs")
+		GPWclr ; RBTconk ;;
+	"--reboot-conky"|"--rbck")
+		RBTconk ;;
+	*)
+		PNThelp
+esac

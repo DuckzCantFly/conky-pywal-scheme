@@ -1,0 +1,56 @@
+#! /bin/bash
+
+
+CKSCA="$XDG_CACHE_HOME/conky-pywal-scheme"
+
+# the only line that needs bash kus cant figure out this shit every, thing else should be posix
+###
+__=""
+_stdin=""
+
+read -N1 -t1 __  && {
+  (( $? <= 128 ))  && {
+    IFS= read -rd '' _stdin
+    STDIN="$__$_stdin"
+  }
+}
+###
+
+SELclr(){
+	case $1 in
+		"dim"|"bright"|"normal")
+			CLBRI="$1"
+			CLNUM="$2" ;;
+		*)
+			CLBRI=$(shuf -e dim bright normal -n1)
+			CLNUM="$1" ;;
+	esac
+	[ "$CLNUM" -ge "0" ] 2> /dev/null && [ "$CLNUM" -le "15" ] 2> /dev/null \
+		&& cat $CKSCA/$CLBRI/color$CLNUM \
+		|| cat $CKSCA/$CLBRI/color$(shuf -i 1-15 -n1)
+}
+
+RNDclrlist(){
+	LINEARGS="$@"
+	IFS='
+'
+	for STDLINE in $STDIN ; do
+		echo $(SELclr $LINEARGS)$STDLINE
+	done
+}
+
+PNThelp(){
+	printf '%s\n' \
+        '| $1 = --help	-h	= "Show Help, also shows if nothing was piped in, dont do that, its slow"  |'\
+        '| $1 =  ""		= "grabs color code for conky, any feild left blank is randomized"  	   |'\
+        '	\ options									           |'\
+	'	 | $1 	= 	"normal" "dim" "bright" 	= "color brightness"			   |'\
+	'	 | $1,$2=	1,2,3,...13,14,15		= "Pywal/Terminal color value"		   |'
+}
+[ -z $STDIN ] && PNThelp && exit
+case $1 in
+	"--help"|"-h")
+		PNThelp ;;
+	*)
+		RNDclrlist $@
+esac
