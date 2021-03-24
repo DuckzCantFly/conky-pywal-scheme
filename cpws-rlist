@@ -20,22 +20,20 @@ SELclr(){
 	case $1 in
 		"dim"|"bright"|"normal")
 			CLBRI="$1"
-			CLNUM="$2" ;;
+			shift ;;
 		*)
 			CLBRI=$(shuf -e dim bright normal -n1)
-			CLNUM="$1" ;;
 	esac
-	[ "$CLNUM" -ge "0" ] 2> /dev/null && [ "$CLNUM" -le "15" ] 2> /dev/null \
-		&& cat $CKSCA/$CLBRI/color$CLNUM \
-		|| cat $CKSCA/$CLBRI/color$(shuf -i 1-15 -n1)
+	[ -n "$1" ] \
+		&& cat $CKSCA/$CLBRI/color$(shuf "$@" -n1) \
+		|| cat $CKSCA/$CLBRI/color$(shuf -i 0-15 -n1)
 }
 
 RNDclrlist(){
-	LINEARGS="$@"
 	IFS='
 '
 	for STDLINE in $STDIN ; do
-		echo $(SELclr $LINEARGS)$STDLINE
+		echo $(SELclr "$@")$STDLINE
 	done
 }
 
@@ -45,7 +43,7 @@ PNThelp(){
         '| $1 =  ""		= "grabs color code for conky, any feild left blank is randomized"  	   |'\
         '	\ options									           |'\
 	'	 | $1 	= 	"normal" "dim" "bright" 	= "color brightness"			   |'\
-	'	 | $1,$2=	1,2,3,...13,14,15		= "Pywal/Terminal color value"		   |'
+	'	 | $@   = this uses the shuf command, in a range 1-15 type man shuf in the treminal for more details= "Pywal/Terminal color value" |'
 }
 [ -z $STDIN ] && PNThelp && exit
 case $1 in
