@@ -32,7 +32,7 @@ GPWclr(){
 				CMI=$(( 0x$CMB - 0x30 ))
 				[ "$CMI" -lt "0" ] && CMI="0"
 				CMI=$(printf 0x%X $CMI | cut -d'x' -f2)
-				while [ ${#CMI} -ne 2 ] ; do ; CMI="0"$CMI ; done
+				while [ ${#CMI} -ne 2 ] ; do CMI="0"$CMI ; done
 				eval "CMI$CLINC=$CMI"
 		done
 		echo "\${color #$CMI1$CMI2$CMI3}" > "$CKSCA/dim/$PWCLRNM"
