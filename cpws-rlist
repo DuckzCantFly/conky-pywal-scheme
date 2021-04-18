@@ -39,11 +39,11 @@ RNDclrlist(){
 
 PNThelp(){
 	printf '%s\n' \
-        '| $1 = --help	-h	= "Show Help, also shows if nothing was piped in, dont do that, its slow"  |'\
-        '| $1 =  ""		= "grabs color code for conky, any feild left blank is randomized"  	   |'\
-        '	\ options									           |'\
-	'	 | $1 	= 	"normal" "dim" "bright" 	= "color brightness"			   |'\
-	'	 | $@   = this uses the shuf command, in a range 1-15 type man shuf in the treminal for more details= "Pywal/Terminal color value" |'
+	'Usage: cpws-rlist [brightness] [shuf args] [numder range or list 0-15] '
+        '   --help  -h		 "Show Help, also shows if nothing was piped in, dont do that, its slow"  '\
+        '    ""			 "grabs color code for conky, any feild left blank is randomized"'\
+	'    normal dim bright 	 "color brightness"'\
+	'    this uses the shuf command, in a range 1-15 type man shuf in the treminal for more details= "Pywal/Terminal color value"'
 }
 [ -z $STDIN ] && PNThelp && exit
 case $1 in

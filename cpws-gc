@@ -17,15 +17,16 @@ SELclr(){
 
 PNThelp(){
 	printf '%s\n' \
-        '| $1 = --help	-h = "Show Help"						       |'\
-        '| $1 = ""	   = "grabs color code for conky, any feild left blank is randomized"  |'\
-        '	\  opions:								       |'\
-	'	 | $1 	= 	"normal" "dim" "bright" 	= "color brightness"	       |'\
-	'	 | $@   = this uses the shuf command, in a range 1-15 type man shuf in the treminal for more details= "Pywal/Terminal color value" |'\
-	'	 |'\
-	'	 | The cpws-rlist command has all the same options as cpws-gc.'\
-	'	 | Accept only runs when text is being piped in , then it randomized color of each line'\
-	'	 | Do not use cok-py-sh-rlist without piping somehing into it though. Its really slow if you dont.'
+	'Usage: cpws-rlist [brightness] [shuf args] [numder range or list 0-15] '
+        '	--help  -h		 "Show Help, also shows if nothing was piped in, dont do that, its slow"  '\
+        '    	""			 "grabs color code for conky, any feild left blank is randomized"'\
+	'   	 normal dim bright 	 "color brightness"'\
+	'    	this uses the shuf command, in a range 1-15 type man shuf in the treminal for more details= "Pywal/Terminal color value"'
+	''\
+	'cpws-rlist:'\
+	'		The cpws-rlist command has all the same options as cpws-gc.'\
+	'		Accept only runs when text is being piped in , then it randomized color of each line'\
+	'		Do not use cok-py-sh-rlist without piping somehing into it though. Its really slow if you dont.'
 }
 
 case $1 in

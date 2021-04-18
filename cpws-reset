@@ -42,9 +42,9 @@ GPWclr(){
 
 PNThelp(){
 	printf '%s\n' \
-        '| $1 = --help	-h	or ""	= "Show Help"						|'\
-        '| $1 = --reset-color 	--rcs	= "Resets color to newest from Pywal & Reboots Conky"	|'\
-        '| $1 = --reboot-conky 	--rbck	= "Reboots Conky"					|'
+        ' --help   -h    or   ""  "Show Help"					'\
+        ' --reset-color    --rcs  "Resets color to newest from Pywal & Reboots Conky"'\
+        ' --reboot-conky   --rbck "Reboots Conky"				'
 }
 
 case $1 in
