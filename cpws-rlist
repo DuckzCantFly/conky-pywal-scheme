@@ -24,16 +24,19 @@ SELclr(){
 		*)
 			CLBRI=$(shuf -e dim bright normal -n1)
 	esac
-	[ -n "$1" ] \
-		&& cat $CKSCA/$CLBRI/color$(shuf "$@" -n1) \
-		|| cat $CKSCA/$CLBRI/color$(shuf -i 0-15 -n1)
+
+	if [ -n "$1" ] ; then
+		cat "$CKSCA/$CLBRI/color$(shuf "$@" -n1)"
+	else
+		cat "$CKSCA/$CLBRI/color$(shuf -i 0-15 -n1)"
+	fi
 }
 
 RNDclrlist(){
 	IFS='
 '
 	for STDLINE in $STDIN ; do
-		echo $(SELclr "$@")$STDLINE
+		echo "$(SELclr "$@")$STDLINE"
 	done
 }
 
@@ -45,7 +48,7 @@ PNThelp(){
 	'    normal dim bright 	 "color brightness"'\
 	'    this uses the shuf command, in a range 1-15 type man shuf in the treminal for more details= "Pywal/Terminal color value"'
 }
-[ -z $STDIN ] && PNThelp && exit
+[ -z "$STDIN" ] && PNThelp && exit
 case $1 in
 	"--help"|"-h")
 		PNThelp ;;

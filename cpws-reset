@@ -9,9 +9,9 @@ RBTconk(){
 GPWclr(){
 	[ -d "$CKSCA" ] || $(mkdir "$CKSCA" "$CKSCA/dim" "$CKSCA/normal" "$CKSCA/bright")
 
-	for PWCLR in $(head -26 $XDG_CACHE_HOME/wal/colors.sh | tail +11 | sed -e "s/[=\']//g")  ; do
-		PWCLRHX="$(echo $PWCLR | cut -d '#' -f2)"
-		PWCLRNM="$(echo $PWCLR | cut -d '#' -f1)"
+	for PWCLR in $(head -26 "$XDG_CACHE_HOME/wal/colors.sh" | tail +11 | sed -e "s/[=\']//g")  ; do
+		PWCLRHX="$(echo "$PWCLR" | cut -d '#' -f2)"
+		PWCLRNM="$(echo "$PWCLR" | cut -d '#' -f1)"
 		RAWCLR="$(echo "$PWCLRHX" | fold -w2 | tr '[:lower:]' '[:upper:]')"
 
 		echo "\${color #$PWCLRHX}" > "$CKSCA/normal/$PWCLRNM"

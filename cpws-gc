@@ -10,9 +10,12 @@ SELclr(){
 		*)
 			CLBRI=$(shuf -e dim bright normal -n1)
 	esac
-	[ -n "$1" ] \
-		&& cat $CKSCA/$CLBRI/color$(shuf "$@" -n1) \
-		|| cat $CKSCA/$CLBRI/color$(shuf -i 0-15 -n1)
+
+	if [ -n "$1" ] ; then
+		cat "$CKSCA/$CLBRI/color$(shuf "$@" -n1)"
+	else
+		cat "$CKSCA/$CLBRI/color$(shuf -i 0-15 -n1)"
+	fi
 }
 
 PNThelp(){
