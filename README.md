@@ -1,7 +1,7 @@
 # conky-pywal-scheme
-*\*wip\** grabs color scames from pywal and makes it easer to add them to conky
+*\*wip\** grabs color schemes from pywal and makes it easer to add them to conky
 
-tldr till i actually make something presentale
+tldr till i actually make something presentable
 
 git clone the repo
 
